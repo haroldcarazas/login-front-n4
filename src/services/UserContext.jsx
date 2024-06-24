@@ -43,6 +43,12 @@ const UserProvider = ({ children }) => {
     }
   };
 
+  const logoutUser = () => {
+    localStorage.removeItem('token');
+    setUser(null);
+    setIsAuthenticated(false);
+  };
+
   useEffect(() => {
     if (token) {
       authenticateUser();
@@ -52,7 +58,9 @@ const UserProvider = ({ children }) => {
   }, [token]);
 
   return (
-    <UserContext.Provider value={{ user, loading, isAuthenticated, loginUser }}>
+    <UserContext.Provider
+      value={{ user, loading, isAuthenticated, loginUser, logoutUser }}
+    >
       {children}
     </UserContext.Provider>
   );
